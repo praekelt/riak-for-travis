@@ -1,0 +1,18 @@
+language: erlang
+otp_release:
+  - 17.1
+addons:
+  apt:
+    packages:
+      - libpam0g-dev
+
+env:
+  - RIAK_VERSION=2.1.1 ERLANG_VERSION=17.1
+  - RIAK_VERSION=1.4.12 ERLANG_VERSION=R15B01
+
+script:
+  - ./build-riak.sh $RIAK_VERSION $ERLANG_VERSION
+  - mv riak-$RIAK_VERSION/rel/riak .
+  - cp config/riak-$RIAK_VERSION/* riak/etc/
+  - mkdir build/
+  - tar cjf build/riak-$RIAK_VERSION.tar.bz2 riak/
