@@ -1,3 +1,4 @@
+sudo: false  # Container build, please.
 language: erlang
 otp_release:
   - 17.1
@@ -16,3 +17,12 @@ script:
   - cp config/riak-$RIAK_VERSION/* riak/etc/
   - mkdir build/
   - tar cjf build/riak-$RIAK_VERSION.tar.bz2 riak/
+
+deploy:
+  provider: releases
+  file: build/riak-$RIAK_VERSION.tar.bz2
+  skip_cleanup: true
+  on:
+    tags: true
+  api_key:
+    secure: X3sUtg82418drEbf36BdwfGYFJBP0i6BTDI+8mv4Cxw1e3sIBJps/RbhXTVmT+imlMj2KZLCeuMA7C5+KLpR98ei+Wq6KfovYMY0cSCFlRXrxKu5yJPk+GyShn+HsQb1JLqwhiZsrBz+U/BKYRN1B3A6Ilj5IEj7JCI5WVZvPUfual/aeSrymBYR0WPVHBAaom0/QG89oahSc4O/9vwO6gFAsBe1DlnjDma2SQUQliMVosY55+5nKHfVE0LGeOpdNO3qm0zjU0YsI9nbfoOfkgTXQoXwTnly1f8w6fOMQd027dPsCqy56LVyOGWf/O4N85IrA5i2FlMas+w7wsDtYB8n1ox2tZiU3MlviBvxVqCmBSiCNbXkFHvMnRLaYyq4k4bX5cpowGtaf/captBIT/6jPSm34PQC4JRiu742nmbtGLzZhpFTbdsFVUzTmRbxqFORX5K/PluEp30/RJzESlvQvfKtRZb/QD1WJcqoyD09qd/RqO7BbKI/tMoUByGvINAWvyvjgvXzaMKKBlzvbMEGaL/DuZ3Z+Zjy0UWwrtdHysQUZxhNG+gn/qroYuyCqbVJ6lbci1pThsBLnuiWk6rK3hYOEA0ttjupx8voURVYdDzRM7j4Rjvl14TJJL/2qC+9M5rsoL7sTXB+IvUjwbyylLz0bs/fag9RbnByQrw=
